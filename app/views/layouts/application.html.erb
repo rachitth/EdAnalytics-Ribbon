@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= Rails.env == "development" ? "Dev" : ""%> RibbonDiagram</title>
+  <%= stylesheet_link_tag    'application', :media => 'all' %>
+  <%= stylesheet_link_tag params[:controller] %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag params[:controller] %>
+  <%= csrf_meta_tags %>
+
+
+  <link rel="icon" type="image/png" href="<%= asset_path('ribbon_favicon.png') %>">
+
+</head>
+<body>
+
+<div id="header">
+    <% if user_signed_in? %>
+        <p>You are: <a href="<%= user_path(current_user) %>"><%= current_user.name %></a></p>
+        <div class="slicknav-container">
+            <div class="slicknav">
+
+            </div>
+            <ul id="menu" style="display:none;">
+                <li><%= link_to 'Home', root_path %></li>
+
+                <% if policy(User).index? %>
+                    <li><%= link_to 'Users', users_path %></li>
+                <% end %>
+
+                <% if policy(Diagram).create? %>
+                    <li> Diagrams
+                        <ul>
+                            <li><%= link_to 'List', diagrams_path %></li>
+                            <li><%= link_to 'Create', new_diagram_path %></li>
+                        </ul>
+                    </li>
+                <% else %>
+                    <li><%= link_to 'Diagrams', diagrams_path %></li>
+                <% end %>
+
+                <% if current_user.super_admin %>
+                    <li><%= link_to 'Institutions', institutions_path %></li>
+                <% end %>
+
+                <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+            </ul>
+        </div>
+    <% end %>
+
+    <h1 id="site_title">
+      <%= link_to "Ribbon Tool", root_path %>
+    </h1>
+
+    <div id="flash">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, :id => name %>
+        <% end %>
+    </div>
+
+
+
+</div>
+
+
+
+
+<div class="page-content">
+    <%= yield %>
+</div>
+
+<div id="main_footer">
+    <p id="copyright">
+        COPYRIGHT ©, <%= Time.now.year %>. THE REGENTS OF THE UNIVERSITY OF CALIFORNIA. ALL RIGHTS RESERVED.
+    </p>
+</div>
+
+
+</body>
+</html>

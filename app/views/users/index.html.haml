@@ -1,0 +1,49 @@
+%h2 Listing users
+%p Users with <strong>bold</strong> names are admins.
+%p Users with <strong style="color:red;">red</strong> names are waiting for approval from an admin.
+
+Show:
+= link_to "All Users", :action => "index"
+- if policy(current_user).approve?
+  |
+  = link_to "Users awaiting approval", :action => "index", :approved => "false"
+  |
+  = link_to "Export List of Users Awaiting Approval", :action => "export_users_awaiting_approval"
+
+%table.datatable.responsive.no-wrap
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th Institution
+      %th Roles
+      %th
+      - if policy(current_user).edit?
+        %th
+      - if policy(current_user).destroy?
+        %th
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td
+          - if user.approved == false
+            #not-approved-name= user.name
+          - elsif user.has_role? 'institution-admin'
+            #admin-name= user.name
+          - else
+            = user.name
+        %td= user.email
+        %td= user.institution.name
+        %td
+          - if user.role_list.empty?
+            No Roles Assigned
+          - else
+            - user.role_list.each do |role|
+              = role
+              %br
+        %td= link_to 'Show', user
+        - if policy(current_user).edit?
+          %td= link_to 'Edit', edit_user_path(user)
+        - if policy(current_user).destroy?
+          %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
+

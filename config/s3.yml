@@ -1,0 +1,13 @@
+development:
+  access_key_id: <%= ENV["RIB_S3_KEY"] %>
+  secret_access_key: <%= ENV["RIB_S3_SECRET"] %>
+  bucket: ENV["RIB_S3_BUCKET"]
+  s3_region: ENV["RIB_S3_REGION"]
+  region: ENV["RIB_S3_REGION"]
+
+production:
+  access_key_id: <%= ENV["RIB_S3_KEY"] %>
+  secret_access_key: <%= ENV["RIB_S3_SECRET"] %>
+  s3_region: ENV["RIB_S3_REGION"]
+  region: ENV["RIB_S3_REGION"]
+  bucket: ribbon-files

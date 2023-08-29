@@ -1,0 +1,1837 @@
+Started GET "/" for ::1 at 2023-08-24 16:06:50 +0530
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.2.4.6) lib/active_record/migration.rb:579:in `check_pending!'
+activerecord (5.2.4.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.4.6) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+  [1m[35m (8.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(737815420147457505)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateInstitutions (20141104195208)
+  [1m[35m (5.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.3ms)[0m  [1m[35mCREATE TABLE "institutions" ("id" bigserial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mInstitution Create (0.9ms)[0m  [1m[32mINSERT INTO "institutions" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Test Institution"], ["created_at", "2023-08-24 10:39:48.842702"], ["updated_at", "2023-08-24 10:39:48.842702"]]
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20141104195208"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20141104195209)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "institution_id" bigint, "super_admin" boolean DEFAULT FALSE, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_institution_id" ON "users"  ("institution_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20141104195209"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDiagrams (20141104195213)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "diagrams" ("id" bigserial primary key, "institution_id" bigint, "creator_id" integer NOT NULL, "name" character varying, "category" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_diagrams_on_institution_id" ON "diagrams"  ("institution_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20141104195213"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUserDiagrams (20141104195214)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "user_diagrams" ("id" bigserial primary key, "user_id" bigint, "diagram_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_user_diagrams_on_user_id" ON "user_diagrams"  ("user_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_user_diagrams_on_diagram_id" ON "user_diagrams"  ("diagram_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20141104195214"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddDeviseToUsers (20141104195314)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" timestamp[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" timestamp[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "sign_in_count" integer DEFAULT 0 NOT NULL[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_at" timestamp[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_at" timestamp[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_ip" inet[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_ip" inet[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20141104195314"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddDataFormatToDiagrams (20150104205128)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "diagrams" ADD "data_format" character varying[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20150104205128"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddTitleAndDepartmentToUsers (20150106184302)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "title" character varying[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "department" character varying[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20150106184302"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDataFiles (20150110000557)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "data_files" ("id" bigserial primary key, "diagram_id" bigint, "name" character varying, "data_file_file_name" character varying, "data_file_content_type" character varying, "data_file_file_size" bigint, "data_file_updated_at" timestamp, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_data_files_on_diagram_id" ON "data_files"  ("diagram_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20150110000557"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddConfirmableToUsers (20150121195051)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmation_token" character varying[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmed_at" timestamp[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmation_sent_at" timestamp[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "unconfirmed_email" character varying[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20150121195051"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRoyce (20150205230739)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" bigserial primary key, "roleable_type" character varying NOT NULL, "roleable_id" bigint NOT NULL, "role_id" bigint NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_type_and_roleable_id" ON "royce_connector"  ("roleable_type", "roleable_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (1.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(737815420147457505)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(737815420147457505)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateRoyce (20150205230739)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" bigserial primary key, "roleable_type" character varying NOT NULL, "roleable_id" bigint NOT NULL, "role_id" bigint NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_type_and_roleable_id" ON "royce_connector"  ("roleable_type", "roleable_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (2.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(737815420147457505)[0m
+Started GET "/" for ::1 at 2023-08-24 16:11:08 +0530
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.2.4.6) lib/active_record/migration.rb:579:in `check_pending!'
+activerecord (5.2.4.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.4.6) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+Started GET "/" for ::1 at 2023-08-24 16:11:09 +0530
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.2.4.6) lib/active_record/migration.rb:579:in `check_pending!'
+activerecord (5.2.4.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.4.6) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE DATABASE "postgres" ENCODING = 'unicode'[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-08-24 10:44:37.065647"], ["updated_at", "2023-08-24 10:44:37.065647"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for ::1 at 2023-08-24 16:15:05 +0530
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.2.4.6) lib/active_record/migration.rb:579:in `check_pending!'
+activerecord (5.2.4.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.4.6) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(737815420147457505)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateRoyce (20150205230739)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.6ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" bigserial primary key, "roleable_type" character varying NOT NULL, "roleable_id" bigint NOT NULL, "role_id" bigint NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_type_and_roleable_id" ON "royce_connector"  ("roleable_type", "roleable_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (1.9ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(737815420147457505)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT pg_try_advisory_lock(737815420147457505)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateRoyce (20150205230739)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" bigserial primary key, "roleable_type" character varying NOT NULL, "roleable_id" bigint NOT NULL, "role_id" bigint NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_type_and_roleable_id" ON "royce_connector"  ("roleable_type", "roleable_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (1.9ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(737815420147457505)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "postgres"[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "postgres"[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(737815420147457505)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateRoyce (20150205230739)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" bigserial primary key, "roleable_type" character varying NOT NULL, "roleable_id" bigint NOT NULL, "role_id" bigint NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_type_and_roleable_id" ON "royce_connector"  ("roleable_type", "roleable_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (1.8ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(737815420147457505)[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "postgres"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE DATABASE "postgres" ENCODING = 'unicode'[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(737815420147457505)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateRoyce (20150205230739)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (7.6ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" bigserial primary key, "roleable_type" character varying NOT NULL, "roleable_id" bigint NOT NULL, "role_id" bigint NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_type_and_roleable_id" ON "royce_connector"  ("roleable_type", "roleable_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (1.9ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(737815420147457505)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35mSQL (0.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35mSQL (415.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "sslinfo"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_attachments" CASCADE[0m
+  [1m[35m (8.9ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments"  ("blob_id")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_active_storage_attachments_uniqueness" ON "active_storage_attachments"  ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_blobs" CASCADE[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "byte_size" bigint NOT NULL, "checksum" character varying NOT NULL, "created_at" timestamp NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_active_storage_blobs_on_key" ON "active_storage_blobs"  ("key")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "announcements" CASCADE[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "announcements" ("id" serial NOT NULL PRIMARY KEY, "message" character varying(255) NOT NULL, "admin_only" boolean DEFAULT FALSE, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (2.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "data_files" CASCADE[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "data_files" ("id" serial NOT NULL PRIMARY KEY, "diagram_id" integer, "name" character varying(255), "data_file_file_name" character varying(255), "data_file_content_type" character varying(255), "data_file_file_size" integer, "data_file_updated_at" timestamp, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (3.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "diagrams" CASCADE[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "diagrams" ("id" serial NOT NULL PRIMARY KEY, "institution_id" integer, "creator_id" integer NOT NULL, "name" character varying(255), "category" character varying(255), "created_at" timestamp, "updated_at" timestamp, "data_format" character varying(255), "description" text, "downloadable" boolean DEFAULT FALSE, "share_with_all" boolean DEFAULT FALSE, "share_with_all_institutions" boolean DEFAULT FALSE, "local" boolean DEFAULT FALSE)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_diagrams_on_institution_id" ON "diagrams"  ("institution_id")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "institutions" CASCADE[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "institutions" ("id" serial NOT NULL PRIMARY KEY, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "royce_connector" CASCADE[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" serial NOT NULL PRIMARY KEY, "roleable_id" integer NOT NULL, "roleable_type" character varying(255) NOT NULL, "role_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "royce_role" CASCADE[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE "royce_role" ("id" serial NOT NULL PRIMARY KEY, "name" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_royce_role_on_name" ON "royce_role"  ("name")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "taggings" CASCADE[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE TABLE "taggings" ("id" serial NOT NULL PRIMARY KEY, "tag_id" integer, "taggable_id" integer, "taggable_type" character varying(255), "tagger_id" integer, "tagger_type" character varying(255), "context" character varying(128), "created_at" timestamp)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE UNIQUE INDEX  "taggings_idx" ON "taggings"  ("tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_taggable_id_and_taggable_type_and_context" ON "taggings"  ("taggable_id", "taggable_type", "context")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "tags" CASCADE[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "tags" ("id" serial NOT NULL PRIMARY KEY, "name" character varying(255), "taggings_count" integer DEFAULT 0)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_tags_on_name" ON "tags"  ("name")[0m
+  [1m[35m (2.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_diagrams" CASCADE[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "user_diagrams" ("id" serial NOT NULL PRIMARY KEY, "user_id" integer, "diagram_id" integer, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX  "index_user_diagrams_on_diagram_id" ON "user_diagrams"  ("diagram_id")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_user_diagrams_on_user_id" ON "user_diagrams"  ("user_id")[0m
+  [1m[35m (3.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial NOT NULL PRIMARY KEY, "institution_id" integer, "super_admin" boolean DEFAULT FALSE, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp, "email" character varying(255) DEFAULT '' NOT NULL, "encrypted_password" character varying(255) DEFAULT '' NOT NULL, "reset_password_token" character varying(255), "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" inet, "last_sign_in_ip" inet, "title" character varying(255), "department" character varying(255), "confirmation_token" character varying(255), "confirmed_at" timestamp, "confirmation_sent_at" timestamp, "unconfirmed_email" character varying(255), "approved" boolean DEFAULT FALSE NOT NULL, "do_not_mail" boolean DEFAULT FALSE)[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_approved" ON "users"  ("approved")[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_institution_id" ON "users"  ("institution_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35m (3.3ms)[0m  [1m[35mALTER TABLE "active_storage_attachments" ADD CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210329211750)[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20151120010655),
+(20150226192843),
+(20151120003239),
+(20160211182506),
+(20150603185716),
+(20150206210716),
+(20150302204518),
+(20150205230739),
+(20160203211717),
+(20150603185717),
+(20150603185714),
+(20150603185715),
+(20150206225839);
+
+[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.9ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.9ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "institution-admin"], ["created_at", "2023-08-24 10:55:42.834642"], ["updated_at", "2023-08-24 10:55:42.834642"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-view"], ["created_at", "2023-08-24 10:55:42.837162"], ["updated_at", "2023-08-24 10:55:42.837162"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-update"], ["created_at", "2023-08-24 10:55:42.838489"], ["updated_at", "2023-08-24 10:55:42.838489"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-set-roles"], ["created_at", "2023-08-24 10:55:42.839774"], ["updated_at", "2023-08-24 10:55:42.839774"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-approve"], ["created_at", "2023-08-24 10:55:42.841041"], ["updated_at", "2023-08-24 10:55:42.841041"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-destroy"], ["created_at", "2023-08-24 10:55:42.842308"], ["updated_at", "2023-08-24 10:55:42.842308"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-create"], ["created_at", "2023-08-24 10:55:42.843535"], ["updated_at", "2023-08-24 10:55:42.843535"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.2ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-update"], ["created_at", "2023-08-24 10:55:42.844795"], ["updated_at", "2023-08-24 10:55:42.844795"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-destroy"], ["created_at", "2023-08-24 10:55:42.846009"], ["updated_at", "2023-08-24 10:55:42.846009"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.2ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-download"], ["created_at", "2023-08-24 10:55:42.847211"], ["updated_at", "2023-08-24 10:55:42.847211"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "sslinfo"[0m
+  [1m[35m (4.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_attachments" CASCADE[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments"  ("blob_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_active_storage_attachments_uniqueness" ON "active_storage_attachments"  ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (1.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_blobs" CASCADE[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "byte_size" bigint NOT NULL, "checksum" character varying NOT NULL, "created_at" timestamp NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_active_storage_blobs_on_key" ON "active_storage_blobs"  ("key")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "announcements" CASCADE[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "announcements" ("id" serial NOT NULL PRIMARY KEY, "message" character varying(255) NOT NULL, "admin_only" boolean DEFAULT FALSE, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "data_files" CASCADE[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE "data_files" ("id" serial NOT NULL PRIMARY KEY, "diagram_id" integer, "name" character varying(255), "data_file_file_name" character varying(255), "data_file_content_type" character varying(255), "data_file_file_size" integer, "data_file_updated_at" timestamp, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (2.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "diagrams" CASCADE[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "diagrams" ("id" serial NOT NULL PRIMARY KEY, "institution_id" integer, "creator_id" integer NOT NULL, "name" character varying(255), "category" character varying(255), "created_at" timestamp, "updated_at" timestamp, "data_format" character varying(255), "description" text, "downloadable" boolean DEFAULT FALSE, "share_with_all" boolean DEFAULT FALSE, "share_with_all_institutions" boolean DEFAULT FALSE, "local" boolean DEFAULT FALSE)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX  "index_diagrams_on_institution_id" ON "diagrams"  ("institution_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "institutions" CASCADE[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "institutions" ("id" serial NOT NULL PRIMARY KEY, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "royce_connector" CASCADE[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" serial NOT NULL PRIMARY KEY, "roleable_id" integer NOT NULL, "roleable_type" character varying(255) NOT NULL, "role_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "royce_role" CASCADE[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "royce_role" ("id" serial NOT NULL PRIMARY KEY, "name" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE  INDEX  "index_royce_role_on_name" ON "royce_role"  ("name")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "taggings" CASCADE[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "taggings" ("id" serial NOT NULL PRIMARY KEY, "tag_id" integer, "taggable_id" integer, "taggable_type" character varying(255), "tagger_id" integer, "tagger_type" character varying(255), "context" character varying(128), "created_at" timestamp)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE UNIQUE INDEX  "taggings_idx" ON "taggings"  ("tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_taggable_id_and_taggable_type_and_context" ON "taggings"  ("taggable_id", "taggable_type", "context")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "tags" CASCADE[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "tags" ("id" serial NOT NULL PRIMARY KEY, "name" character varying(255), "taggings_count" integer DEFAULT 0)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_tags_on_name" ON "tags"  ("name")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_diagrams" CASCADE[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "user_diagrams" ("id" serial NOT NULL PRIMARY KEY, "user_id" integer, "diagram_id" integer, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX  "index_user_diagrams_on_diagram_id" ON "user_diagrams"  ("diagram_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE  INDEX  "index_user_diagrams_on_user_id" ON "user_diagrams"  ("user_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial NOT NULL PRIMARY KEY, "institution_id" integer, "super_admin" boolean DEFAULT FALSE, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp, "email" character varying(255) DEFAULT '' NOT NULL, "encrypted_password" character varying(255) DEFAULT '' NOT NULL, "reset_password_token" character varying(255), "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" inet, "last_sign_in_ip" inet, "title" character varying(255), "department" character varying(255), "confirmation_token" character varying(255), "confirmed_at" timestamp, "confirmation_sent_at" timestamp, "unconfirmed_email" character varying(255), "approved" boolean DEFAULT FALSE NOT NULL, "do_not_mail" boolean DEFAULT FALSE)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_approved" ON "users"  ("approved")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_institution_id" ON "users"  ("institution_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "active_storage_attachments" ADD CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.9ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.9ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "institution-admin"], ["created_at", "2023-08-24 10:57:51.069738"], ["updated_at", "2023-08-24 10:57:51.069738"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-view"], ["created_at", "2023-08-24 10:57:51.072205"], ["updated_at", "2023-08-24 10:57:51.072205"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-update"], ["created_at", "2023-08-24 10:57:51.073573"], ["updated_at", "2023-08-24 10:57:51.073573"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-set-roles"], ["created_at", "2023-08-24 10:57:51.074873"], ["updated_at", "2023-08-24 10:57:51.074873"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-approve"], ["created_at", "2023-08-24 10:57:51.076207"], ["updated_at", "2023-08-24 10:57:51.076207"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.2ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-destroy"], ["created_at", "2023-08-24 10:57:51.077370"], ["updated_at", "2023-08-24 10:57:51.077370"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.2ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-create"], ["created_at", "2023-08-24 10:57:51.078406"], ["updated_at", "2023-08-24 10:57:51.078406"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.2ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-update"], ["created_at", "2023-08-24 10:57:51.079456"], ["updated_at", "2023-08-24 10:57:51.079456"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.2ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-destroy"], ["created_at", "2023-08-24 10:57:51.080486"], ["updated_at", "2023-08-24 10:57:51.080486"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.2ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-download"], ["created_at", "2023-08-24 10:57:51.081509"], ["updated_at", "2023-08-24 10:57:51.081509"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for ::1 at 2023-08-24 16:28:00 +0530
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (10.7ms)
+Completed 200 OK in 1526ms (Views: 1512.7ms | ActiveRecord: 6.5ms)
+
+
+Started GET "/assets/application.self-6271965f343acdff336a53eb86e2d57ec8dbd975355dfe71ea9aafd270aee6a2.css?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/scaffolds.self-4e1b8744eae31d1132f1b8cb46bbe6df7b44b80a91a130588a9d6668df8d1893.css?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/dataTables/extras/dataTables.responsive.self-10a993e82918a2039dbe6545357161bb18904d7b1d77b114d9defd0bc2fece18.css?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/dataTables/jquery.dataTables.self-76355f99edc5ea3eda228f26ff298e10bf6876afb29219ec67237e859a8082f6.css?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/slicknav.self-accbac684eb654e95fd4fb300fcbb7eba97a712d9dddd7b0c1dd3dd7ff012341.css?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/devise/sessions.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/jquery.self-bd7ddd393353a8d2480a622e80342adf488fb6006d667e8b42e4c0073393abee.js?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/jquery_ujs.self-784a997f6726036b1993eb2217c9cb558e1cbb801c6da88105588c56f13b466a.js?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/dataTables/jquery.dataTables.self-f520d04a662abc3bbb379438d969df199552297a55b74651a9e2b33b775df3ed.js?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/dataTables/extras/dataTables.responsive.self-aa99f46f5fdef25942804e5e7adc4bc6c8189da84eaf9a3a634f58cf6c615be7.js?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/jquery.csv.self-4aebb9bb94c659984b22dd2c0355964fb931e247d7d05ac3324e933ef294f5b6.js?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/select2.self-21d68207fa3301394a06e2ca04b61aff1b31d4368025df9a372d564c77adc968.js?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/jquery.slicknav.self-faa604d57a2a94a8bc503aa6836521172165c1e09a455dbff86a1ba3305926fe.js?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/google_analytics.self-dd3279500ad42475fc0bd92849c8c64b4f107916539aaa140dd15b1317370bf0.js?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/application.self-c975599252e257a7187608cc8e9bd5d85dceb8afad34d249877a13ff681397bf.js?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/devise/sessions.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/customize_dataTables.self-f1ea034e00cefb74e35daedaffdab1cfccf1fa14c6faf3b243e1de115747427c.css?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/select2.self-91a960439e4f7f2f580644fee3261877937c2286defa259e06eccfecb8d53b4a.css?body=1" for ::1 at 2023-08-24 16:28:02 +0530
+Started GET "/assets/ribbon_favicon-77dad6d243798d193b1f2a8bb9805e7c44b97b7866e192c1df51b0350d507aae.png" for ::1 at 2023-08-24 16:28:02 +0530
+  [1m[36mRoyce::Role Load (1.6ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+Started GET "/" for ::1 at 2023-08-24 16:29:56 +0530
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.7ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (13.3ms)
+Completed 200 OK in 220ms (Views: 207.2ms | ActiveRecord: 6.8ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2023-08-24 16:30:09 +0530
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Vydn7nmzRRXMj8O6muBsntWOwqFlhDwuhG/avO56vCQWJQqlHQYIYrnB0GjyNYNgG99iA17GhOvt6d7sHcURzg==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 7ms (ActiveRecord: 2.9ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Vydn7nmzRRXMj8O6muBsntWOwqFlhDwuhG/avO56vCQWJQqlHQYIYrnB0GjyNYNgG99iA17GhOvt6d7sHcURzg==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.3ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 462ms (Views: 24.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2023-08-24 16:30:12 +0530
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[36mInstitution Load (0.5ms)[0m  [1m[34mSELECT "institutions".* FROM "institutions" ORDER BY "institutions"."name" ASC[0m
+  Rendered devise/registrations/_institution_select.js.haml (3.2ms)
+  Rendered devise/shared/_links.html.erb (0.5ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (12.2ms)
+Completed 200 OK in 74ms (Views: 70.9ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/assets/devise/registrations.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2023-08-24 16:30:12 +0530
+Started GET "/assets/devise/registrations.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2023-08-24 16:30:12 +0530
+Started POST "/users" for ::1 at 2023-08-24 16:30:48 +0530
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"eT3/N1wIWBB1i0IE156MJbodEOakhsD+D2XhrhkUGYg4P5J8OL0VZwDFUda/S2PbdEywRJ/EeDtm4+X+6qu0Yg==", "user"=>{"name"=>"Rachit Thakur", "email"=>"rachit.thakur1296@gmail.com", "title"=>"Software Developer", "department"=>"DIT- AIT", "institution_id"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (1.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[36mInstitution Load (0.8ms)[0m  [1m[34mSELECT "institutions".* FROM "institutions" ORDER BY "institutions"."name" ASC[0m
+  Rendered devise/registrations/_institution_select.js.haml (1.3ms)
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (5.6ms)
+Completed 200 OK in 129ms (Views: 30.3ms | ActiveRecord: 2.3ms)
+
+
+Started POST "/users" for ::1 at 2023-08-24 16:31:05 +0530
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"YAv3Q9+a49sRld/+GhjBz+hnP8Yz2xZz6u8tqo8Bj9whCZoIuy+urGTbzCxyzS4xJjafZAiZrraDaSn6fL4iNg==", "user"=>{"name"=>"Rachit Thakur", "email"=>"rachit.thakur1296@gmail.com", "title"=>"Software Developer", "department"=>"DIT- AIT", "institution_id"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[36mInstitution Load (0.5ms)[0m  [1m[34mSELECT "institutions".* FROM "institutions" ORDER BY "institutions"."name" ASC[0m
+  Rendered devise/registrations/_institution_select.js.haml (0.7ms)
+  Rendered devise/shared/_links.html.erb (0.3ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 120ms (Views: 18.4ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/users" for ::1 at 2023-08-24 16:34:31 +0530
+Processing by UsersController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2023-08-24 16:34:31 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.8ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 34ms (Views: 32.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2023-08-24 16:34:37 +0530
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"dDjahkuyMQYUZYYkwTGdH31liel8i2x0ZJ0KOjN5ScE1OrfNLwd8cWErlfap5HLhszQpS0fJ1LENGw5qwMbkKw==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.8ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"dDjahkuyMQYUZYYkwTGdH31liel8i2x0ZJ0KOjN5ScE1OrfNLwd8cWErlfap5HLhszQpS0fJ1LENGw5qwMbkKw==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.3ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 111ms (Views: 17.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2023-08-24 16:34:38 +0530
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[36mInstitution Load (0.6ms)[0m  [1m[34mSELECT "institutions".* FROM "institutions" ORDER BY "institutions"."name" ASC[0m
+  Rendered devise/registrations/_institution_select.js.haml (1.8ms)
+  Rendered devise/shared/_links.html.erb (0.7ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (39.1ms)
+Completed 200 OK in 73ms (Views: 65.2ms | ActiveRecord: 5.8ms)
+
+
+Started POST "/users" for ::1 at 2023-08-24 16:35:09 +0530
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"fJyseyglvTXkShMaC8a8ZGZW2e5xu4c4JBFU1k6Qc6g9nsEwTJDwQpEEAMhjE1OaqAd5TEr5P/1Nl1CGvS/eQg==", "user"=>{"name"=>"Rachit Thakur", "email"=>"rachit.thakur1296@gmail.com", "title"=>"Software Developer", "department"=>"DIT- AIT", "institution_id"=>"1", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+  [1m[36mInstitution Load (0.3ms)[0m  [1m[34mSELECT  "institutions".* FROM "institutions" WHERE "institutions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Create (1.7ms)[0m  [1m[32mINSERT INTO "users" ("institution_id", "name", "created_at", "updated_at", "email", "encrypted_password", "title", "department", "confirmation_token", "confirmation_sent_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["institution_id", 1], ["name", "Rachit Thakur"], ["created_at", "2023-08-24 11:05:10.053263"], ["updated_at", "2023-08-24 11:05:10.053263"], ["email", "rachit.thakur1296@gmail.com"], ["encrypted_password", "$2a$10$jS9MuVqTphxzmnjE2lIAH.T/H2KccpNsoRfftJukGvwUTpTpiTZOe"], ["title", "Software Developer"], ["department", "DIT- AIT"], ["confirmation_token", "misyj4_ZjiWRnCroyyh6"], ["confirmation_sent_at", "2023-08-24 11:05:10.053359"]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."institution_id" = $1[0m  [["institution_id", 1]]
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."email" FROM "users" WHERE "users"."super_admin" = $1[0m  [["super_admin", true]]
+  Rendering admin_mailer/new_user_waiting_for_approval.html.erb
+  Rendered admin_mailer/new_user_waiting_for_approval.html.erb (0.3ms)
+AdminMailer#new_user_waiting_for_approval: processed outbound mail in 97.1ms
+Sent mail to matt.steinwachs@iamstem.ucdavis.edu (6.6ms)
+Date: Thu, 24 Aug 2023 16:35:10 +0530
+From: tea@ucdavis.edu
+To: matt.steinwachs@iamstem.ucdavis.edu
+Message-ID: <64e7396647d7c_3f98226a07010962@Rachits-MacBook-Air.local.mail>
+Subject: Ribbon Tool - New User Approval Needed
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+
+  <h1>A new user is requesting access to the Ribbon Tool for UMD.</h1>
+
+  <p>
+      Name: Rachit Thakur
+  </p>
+
+  <p>
+      Email: rachit.thakur1296@gmail.com
+  </p>
+
+  <p>
+      Approve this user at <a href="http://localhost:3000/users/1/edit">http://localhost:3000/users/1/edit</a>
+  </p>
+
+</body>
+</html>
+
+
+
+
+
+
+
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  Rendering devise/mailer/confirmation_instructions.html.erb
+  Rendered devise/mailer/confirmation_instructions.html.erb (0.3ms)
+Devise::Mailer#confirmation_instructions: processed outbound mail in 3.7ms
+Sent mail to rachit.thakur1296@gmail.com (0.3ms)
+Date: Thu, 24 Aug 2023 16:35:10 +0530
+From: ribbon-tool@iamstem.ucdavis.edu
+Reply-To: ribbon-tool@iamstem.ucdavis.edu
+To: rachit.thakur1296@gmail.com
+Message-ID: <64e739664a46a_3f98226a07011089@Rachits-MacBook-Air.local.mail>
+Subject: Confirmation instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<h2>Hi,</h2>
+
+<p>Thanks for requesting access to the Ribbon Tool!</p>
+
+<p>Before you can get started, you will need to confirm that you really requested access, and an admin will need to approve you.</p>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><a href="http://localhost:3000/users/confirmation?confirmation_token=misyj4_ZjiWRnCroyyh6">Confirm my account</a></p>
+
+<p>An admin has been notified of your request.  Upon approval you will be sent a notification email.</p>
+
+<p style="color:red;">
+    If you recieved this email and did not request an account, please contact matt.steinwachs@iamstem.ucdavis.edu and we'll stop bothering you.
+</p>
+Redirected to http://localhost:3000/
+Completed 302 Found in 357ms (ActiveRecord: 6.3ms)
+
+
+Started GET "/" for ::1 at 2023-08-24 16:35:10 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.3ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 18ms (Views: 17.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2023-08-24 16:35:26 +0530
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gF/uusndDNhCDhJTWVv4KWrsr6gNKz8eBa+ErNZThFPBXYPxrWhBrzdAAYExjhfXpL0PCjZph9tsKYD8JewpuQ==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 101ms (ActiveRecord: 0.7ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gF/uusndDNhCDhJTWVv4KWrsr6gNKz8eBa+ErNZThFPBXYPxrWhBrzdAAYExjhfXpL0PCjZph9tsKYD8JewpuQ==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.3ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 91ms (Views: 29.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2023-08-24 16:35:35 +0530
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"FAsISgMK6bnRZEm/XoOAQKAKHp0TGamQqxyrkKI+bMVVCWUBZ7+kzqQqWm02Vm++blu+PyhbEVXCmq/AUYHBLw==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 401 Unauthorized in 104ms (ActiveRecord: 1.2ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2023-08-24 16:35:35 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 32ms (Views: 31.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/confirmation/new" for ::1 at 2023-08-24 16:35:39 +0530
+Processing by Users::ConfirmationsController#new as HTML
+  Rendering users/confirmations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.0ms)
+  Rendered users/confirmations/new.html.erb within layouts/application (3.3ms)
+DEPRECATION WARNING: The asset "users/confirmations.css" is not present in the asset pipeline.
+Falling back to an asset that may be in the public folder.
+This behavior is deprecated and will be removed.
+To bypass the asset pipeline and preserve this behavior,
+use the `skip_pipeline: true` option.
+ (called from _app_views_layouts_application_html_erb__567921764383603303_2225014180 at /Users/rachitth/Documents/GitHub/Ribbon_Diagram/app/views/layouts/application.html.erb:6)
+DEPRECATION WARNING: The asset "users/confirmations.js" is not present in the asset pipeline.
+Falling back to an asset that may be in the public folder.
+This behavior is deprecated and will be removed.
+To bypass the asset pipeline and preserve this behavior,
+use the `skip_pipeline: true` option.
+ (called from _app_views_layouts_application_html_erb__567921764383603303_2225014180 at /Users/rachitth/Documents/GitHub/Ribbon_Diagram/app/views/layouts/application.html.erb:8)
+Completed 200 OK in 64ms (Views: 62.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/stylesheets/users/confirmations.css" for ::1 at 2023-08-24 16:35:39 +0530
+Started GET "/javascripts/users/confirmations.js" for ::1 at 2023-08-24 16:35:39 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/stylesheets/users/confirmations.css"):
+  
+  
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:65:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+ActionController::RoutingError (No route matches [GET] "/javascripts/users/confirmations.js"):
+  
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:65:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+  [1m[36mRoyce::Role Load (1.0ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE DATABASE "postgres" ENCODING = 'unicode'[0m
+  [1m[36mRoyce::Role Load (0.9ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+Started GET "/" for ::1 at 2023-08-24 17:06:45 +0530
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (10.4ms)
+Completed 200 OK in 208ms (Views: 193.1ms | ActiveRecord: 8.1ms)
+
+
+  [1m[36mRoyce::Role Load (2.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+Started GET "/" for ::1 at 2023-08-24 20:25:42 +0530
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.5ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (12.2ms)
+Completed 200 OK in 239ms (Views: 223.4ms | ActiveRecord: 8.7ms)
+
+
+Started GET "/users/confirmation/new" for ::1 at 2023-08-24 20:25:47 +0530
+Processing by Users::ConfirmationsController#new as HTML
+  Rendering users/confirmations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.8ms)
+  Rendered users/confirmations/new.html.erb within layouts/application (2.8ms)
+DEPRECATION WARNING: The asset "users/confirmations.css" is not present in the asset pipeline.
+Falling back to an asset that may be in the public folder.
+This behavior is deprecated and will be removed.
+To bypass the asset pipeline and preserve this behavior,
+use the `skip_pipeline: true` option.
+ (called from _app_views_layouts_application_html_erb___4402438150220437795_2611320800 at /Users/rachitth/Documents/GitHub/Ribbon_Diagram/app/views/layouts/application.html.erb:6)
+DEPRECATION WARNING: The asset "users/confirmations.js" is not present in the asset pipeline.
+Falling back to an asset that may be in the public folder.
+This behavior is deprecated and will be removed.
+To bypass the asset pipeline and preserve this behavior,
+use the `skip_pipeline: true` option.
+ (called from _app_views_layouts_application_html_erb___4402438150220437795_2611320800 at /Users/rachitth/Documents/GitHub/Ribbon_Diagram/app/views/layouts/application.html.erb:8)
+Completed 200 OK in 50ms (Views: 47.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/stylesheets/users/confirmations.css" for ::1 at 2023-08-24 20:25:47 +0530
+Started GET "/javascripts/users/confirmations.js" for ::1 at 2023-08-24 20:25:47 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/stylesheets/users/confirmations.css"):
+  
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:65:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+  
+ActionController::RoutingError (No route matches [GET] "/javascripts/users/confirmations.js"):
+  
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:65:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+  [1m[36mRoyce::Role Load (0.7ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE DATABASE "postgres" ENCODING = 'unicode'[0m
+  [1m[36mRoyce::Role Load (0.7ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(737815420147457505)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(737815420147457505)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mRoyce::Role Load (0.7ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+Started GET "/" for ::1 at 2023-08-24 20:35:32 +0530
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (7.5ms)
+Completed 200 OK in 188ms (Views: 173.6ms | ActiveRecord: 8.4ms)
+
+
+Started GET "/" for 172.18.0.1 at 2023-08-24 17:22:11 +0000
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.2.4.6) lib/active_record/migration.rb:579:in `check_pending!'
+activerecord (5.2.4.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.4.6) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+Started GET "/" for 172.18.0.1 at 2023-08-24 17:23:10 +0000
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.2.4.6) lib/active_record/migration.rb:579:in `check_pending!'
+activerecord (5.2.4.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.4.6) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+Started GET "/" for 172.18.0.1 at 2023-08-24 17:23:12 +0000
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.2.4.6) lib/active_record/migration.rb:579:in `check_pending!'
+activerecord (5.2.4.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.4.6) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7864839756650184315)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateInstitutions (20141104195208)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "institutions" ("id" bigserial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mInstitution Create (0.2ms)[0m  [1m[32mINSERT INTO "institutions" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Test Institution"], ["created_at", "2023-08-24 17:23:38.425197"], ["updated_at", "2023-08-24 17:23:38.425197"]]
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20141104195208"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20141104195209)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "institution_id" bigint, "super_admin" boolean DEFAULT FALSE, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_institution_id" ON "users"  ("institution_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20141104195209"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDiagrams (20141104195213)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "diagrams" ("id" bigserial primary key, "institution_id" bigint, "creator_id" integer NOT NULL, "name" character varying, "category" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX  "index_diagrams_on_institution_id" ON "diagrams"  ("institution_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20141104195213"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUserDiagrams (20141104195214)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "user_diagrams" ("id" bigserial primary key, "user_id" bigint, "diagram_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX  "index_user_diagrams_on_user_id" ON "user_diagrams"  ("user_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX  "index_user_diagrams_on_diagram_id" ON "user_diagrams"  ("diagram_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20141104195214"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddDeviseToUsers (20141104195314)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" timestamp[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" timestamp[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "sign_in_count" integer DEFAULT 0 NOT NULL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_at" timestamp[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_at" timestamp[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_ip" inet[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_ip" inet[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20141104195314"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddDataFormatToDiagrams (20150104205128)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "diagrams" ADD "data_format" character varying[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20150104205128"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddTitleAndDepartmentToUsers (20150106184302)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "title" character varying[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "department" character varying[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20150106184302"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDataFiles (20150110000557)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "data_files" ("id" bigserial primary key, "diagram_id" bigint, "name" character varying, "data_file_file_name" character varying, "data_file_content_type" character varying, "data_file_file_size" bigint, "data_file_updated_at" timestamp, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_data_files_on_diagram_id" ON "data_files"  ("diagram_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20150110000557"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddConfirmableToUsers (20150121195051)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmation_token" character varying[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmed_at" timestamp[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmation_sent_at" timestamp[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "unconfirmed_email" character varying[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20150121195051"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRoyce (20150205230739)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" bigserial primary key, "roleable_type" character varying NOT NULL, "roleable_id" bigint NOT NULL, "role_id" bigint NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_type_and_roleable_id" ON "royce_connector"  ("roleable_type", "roleable_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(7864839756650184315)[0m
+Started GET "/" for 172.18.0.1 at 2023-08-24 17:23:55 +0000
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.2.4.6) lib/active_record/migration.rb:579:in `check_pending!'
+activerecord (5.2.4.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.4.6) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.4.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.4.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.4.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.4.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.4.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.4.6) lib/rails/engine.rb:524:in `call'
+puma (6.0.0) lib/puma/configuration.rb:268:in `call'
+puma (6.0.0) lib/puma/request.rb:89:in `block in handle_request'
+puma (6.0.0) lib/puma/thread_pool.rb:343:in `with_force_shutdown'
+puma (6.0.0) lib/puma/request.rb:88:in `handle_request'
+puma (6.0.0) lib/puma/server.rb:430:in `process_client'
+puma (6.0.0) lib/puma/server.rb:233:in `block in run'
+puma (6.0.0) lib/puma/thread_pool.rb:150:in `block in spawn_thread'
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE DATABASE "myapp_development" ENCODING = 'unicode'[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7864839756650184315)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateRoyce (20150205230739)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" bigserial primary key, "roleable_type" character varying NOT NULL, "roleable_id" bigint NOT NULL, "role_id" bigint NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_type_and_roleable_id" ON "royce_connector"  ("roleable_type", "roleable_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(7864839756650184315)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7864839756650184315)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateRoyce (20150205230739)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" bigserial primary key, "roleable_type" character varying NOT NULL, "roleable_id" bigint NOT NULL, "role_id" bigint NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_type_and_roleable_id" ON "royce_connector"  ("roleable_type", "roleable_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(7864839756650184315)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-08-24 17:28:27.872539"], ["updated_at", "2023-08-24 17:28:27.872539"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (5094.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "myapp_development"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7864839756650184315)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateRoyce (20150205230739)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" bigserial primary key, "roleable_type" character varying NOT NULL, "roleable_id" bigint NOT NULL, "role_id" bigint NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_type_and_roleable_id" ON "royce_connector"  ("roleable_type", "roleable_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(7864839756650184315)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (11.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "myapp_development"[0m
+  [1m[35m (21.2ms)[0m  [1m[35mCREATE DATABASE "myapp_development" ENCODING = 'unicode'[0m
+  [1m[35mSQL (2.8ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "adminpack"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "sslinfo"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_attachments" CASCADE[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments"  ("blob_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_active_storage_attachments_uniqueness" ON "active_storage_attachments"  ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_blobs" CASCADE[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "byte_size" bigint NOT NULL, "checksum" character varying NOT NULL, "created_at" timestamp NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_active_storage_blobs_on_key" ON "active_storage_blobs"  ("key")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "announcements" CASCADE[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "announcements" ("id" serial NOT NULL PRIMARY KEY, "message" character varying(255) NOT NULL, "admin_only" boolean DEFAULT FALSE, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "data_files" CASCADE[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "data_files" ("id" serial NOT NULL PRIMARY KEY, "diagram_id" integer, "name" character varying(255), "data_file_file_name" character varying(255), "data_file_content_type" character varying(255), "data_file_file_size" integer, "data_file_updated_at" timestamp, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "diagrams" CASCADE[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "diagrams" ("id" serial NOT NULL PRIMARY KEY, "institution_id" integer, "creator_id" integer NOT NULL, "name" character varying(255), "category" character varying(255), "created_at" timestamp, "updated_at" timestamp, "data_format" character varying(255), "description" text, "downloadable" boolean DEFAULT FALSE, "share_with_all" boolean DEFAULT FALSE, "share_with_all_institutions" boolean DEFAULT FALSE, "local" boolean DEFAULT FALSE)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_diagrams_on_institution_id" ON "diagrams"  ("institution_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "institutions" CASCADE[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "institutions" ("id" serial NOT NULL PRIMARY KEY, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "royce_connector" CASCADE[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "royce_connector" ("id" serial NOT NULL PRIMARY KEY, "roleable_id" integer NOT NULL, "roleable_type" character varying(255) NOT NULL, "role_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_role_id" ON "royce_connector"  ("role_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_royce_connector_on_roleable_id_and_roleable_type" ON "royce_connector"  ("roleable_id", "roleable_type")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "royce_role" CASCADE[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "royce_role" ("id" serial NOT NULL PRIMARY KEY, "name" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_royce_role_on_name" ON "royce_role"  ("name")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "taggings" CASCADE[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "taggings" ("id" serial NOT NULL PRIMARY KEY, "tag_id" integer, "taggable_id" integer, "taggable_type" character varying(255), "tagger_id" integer, "tagger_type" character varying(255), "context" character varying(128), "created_at" timestamp)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "taggings_idx" ON "taggings"  ("tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_taggable_id_and_taggable_type_and_context" ON "taggings"  ("taggable_id", "taggable_type", "context")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "tags" CASCADE[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "tags" ("id" serial NOT NULL PRIMARY KEY, "name" character varying(255), "taggings_count" integer DEFAULT 0)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_tags_on_name" ON "tags"  ("name")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_diagrams" CASCADE[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "user_diagrams" ("id" serial NOT NULL PRIMARY KEY, "user_id" integer, "diagram_id" integer, "created_at" timestamp, "updated_at" timestamp)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_user_diagrams_on_diagram_id" ON "user_diagrams"  ("diagram_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_user_diagrams_on_user_id" ON "user_diagrams"  ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial NOT NULL PRIMARY KEY, "institution_id" integer, "super_admin" boolean DEFAULT FALSE, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp, "email" character varying(255) DEFAULT '' NOT NULL, "encrypted_password" character varying(255) DEFAULT '' NOT NULL, "reset_password_token" character varying(255), "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" inet, "last_sign_in_ip" inet, "title" character varying(255), "department" character varying(255), "confirmation_token" character varying(255), "confirmed_at" timestamp, "confirmation_sent_at" timestamp, "unconfirmed_email" character varying(255), "approved" boolean DEFAULT FALSE NOT NULL, "do_not_mail" boolean DEFAULT FALSE)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_approved" ON "users"  ("approved")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_institution_id" ON "users"  ("institution_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "active_storage_attachments" ADD CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210329211750)[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20150104205128),
+(20150106184302),
+(20151120010655),
+(20150226192843),
+(20151120003239),
+(20160211182506),
+(20141104195314),
+(20141104195214),
+(20150603185716),
+(20150206210716),
+(20150302204518),
+(20150205230739),
+(20160203211717),
+(20141104195208),
+(20150603185717),
+(20150603185714),
+(20141104195209),
+(20150603185715),
+(20141104195213),
+(20150110000557),
+(20150121195051),
+(20150206225839);
+
+[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-08-24 17:29:35.019105"], ["updated_at", "2023-08-24 17:29:35.019105"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.3ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "institution-admin"], ["created_at", "2023-08-24 17:30:09.062537"], ["updated_at", "2023-08-24 17:30:09.062537"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.1ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-view"], ["created_at", "2023-08-24 17:30:09.064648"], ["updated_at", "2023-08-24 17:30:09.064648"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.1ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-update"], ["created_at", "2023-08-24 17:30:09.065944"], ["updated_at", "2023-08-24 17:30:09.065944"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.1ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-set-roles"], ["created_at", "2023-08-24 17:30:09.067181"], ["updated_at", "2023-08-24 17:30:09.067181"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.2ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-approve"], ["created_at", "2023-08-24 17:30:09.068420"], ["updated_at", "2023-08-24 17:30:09.068420"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.1ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user-destroy"], ["created_at", "2023-08-24 17:30:09.069704"], ["updated_at", "2023-08-24 17:30:09.069704"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.1ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-create"], ["created_at", "2023-08-24 17:30:09.070888"], ["updated_at", "2023-08-24 17:30:09.070888"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.1ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-update"], ["created_at", "2023-08-24 17:30:09.072095"], ["updated_at", "2023-08-24 17:30:09.072095"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.1ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-destroy"], ["created_at", "2023-08-24 17:30:09.073272"], ["updated_at", "2023-08-24 17:30:09.073272"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRoyce::Role Create (0.1ms)[0m  [1m[32mINSERT INTO "royce_role" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "diagram-download"], ["created_at", "2023-08-24 17:30:09.074415"], ["updated_at", "2023-08-24 17:30:09.074415"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for 172.18.0.1 at 2023-08-24 17:30:22 +0000
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.5ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (16.3ms)
+Completed 200 OK in 1886ms (Views: 1876.3ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/assets/dataTables/jquery.dataTables.self-b9d21e2b108a46345fdd54b6f7d4a272cc240ef67b7949ba02cd6738f9265772.css?body=1" for 172.18.0.1 at 2023-08-24 17:30:24 +0000
+Started GET "/assets/dataTables/extras/dataTables.responsive.self-1f8591bda2ba9cb0da4e7c6b4ebf3308a9eada9eba34f5d419597c7f6d935fbf.css?body=1" for 172.18.0.1 at 2023-08-24 17:30:24 +0000
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.1ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7864839756650184315)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(7864839756650184315)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/users/sign_up" for 172.18.0.1 at 2023-08-24 17:31:40 +0000
+  [1m[36mRoyce::Role Load (0.8ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "institution-admin"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-view"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-set-roles"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-approve"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "user-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-create"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-update"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-destroy"], ["LIMIT", 1]]
+  [1m[36mRoyce::Role Load (0.2ms)[0m  [1m[34mSELECT  "royce_role".* FROM "royce_role" WHERE "royce_role"."name" = $1 LIMIT $2[0m  [["name", "diagram-download"], ["LIMIT", 1]]
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[36mInstitution Load (0.3ms)[0m  [1m[34mSELECT "institutions".* FROM "institutions" ORDER BY "institutions"."name" ASC[0m
+  Rendered devise/registrations/_institution_select.js.haml (2.5ms)
+  Rendered devise/shared/_links.html.erb (0.6ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (15.4ms)
+Completed 200 OK in 95ms (Views: 83.7ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/" for 172.18.0.1 at 2023-08-24 17:38:22 +0000
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.6ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (4.6ms)
+Completed 200 OK in 88ms (Views: 86.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 172.18.0.1 at 2023-08-24 17:42:37 +0000
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  [1m[36mInstitution Load (1.1ms)[0m  [1m[34mSELECT "institutions".* FROM "institutions" ORDER BY "institutions"."name" ASC[0m
+  Rendered devise/registrations/_institution_select.js.haml (1.7ms)
+  Rendered devise/shared/_links.html.erb (0.8ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (20.9ms)
+Completed 200 OK in 85ms (Views: 80.0ms | ActiveRecord: 3.9ms)
+
+
+Started POST "/users" for 172.18.0.1 at 2023-08-24 17:43:05 +0000
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"jHacZE82mbwhPviaz9HpRy4uA88aAlQeU4Dw0LuiJBx5sVYj8qO8ZBqOICHYg8ZAynsyEEZ+GOGWQiWRuutkCQ==", "user"=>{"name"=>"Rachit Thakur", "email"=>"rachit.thakur1296@gmail.com", "title"=>"Software Developer", "department"=>"DIT- AIT", "institution_id"=>"1", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+  [1m[36mInstitution Load (0.1ms)[0m  [1m[34mSELECT  "institutions".* FROM "institutions" WHERE "institutions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("institution_id", "name", "created_at", "updated_at", "email", "encrypted_password", "title", "department", "confirmation_token", "confirmation_sent_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["institution_id", 1], ["name", "Rachit Thakur"], ["created_at", "2023-08-24 17:43:05.983837"], ["updated_at", "2023-08-24 17:43:05.983837"], ["email", "rachit.thakur1296@gmail.com"], ["encrypted_password", "$2a$10$TuB05LD6er3o2Tyyr2nEmOOcB1GUO1t4bUGNQJwI2dP3UZUwJITDe"], ["title", "Software Developer"], ["department", "DIT- AIT"], ["confirmation_token", "NR9HvwCAy5xjPCQ931W-"], ["confirmation_sent_at", "2023-08-24 17:43:05.983912"]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."institution_id" = $1[0m  [["institution_id", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."email" FROM "users" WHERE "users"."super_admin" = $1[0m  [["super_admin", true]]
+  Rendering admin_mailer/new_user_waiting_for_approval.html.erb
+  Rendered admin_mailer/new_user_waiting_for_approval.html.erb (0.4ms)
+AdminMailer#new_user_waiting_for_approval: processed outbound mail in 154.3ms
+Sent mail to matt.steinwachs@iamstem.ucdavis.edu (9.9ms)
+Date: Thu, 24 Aug 2023 17:43:06 +0000
+From: tea@ucdavis.edu
+To: matt.steinwachs@iamstem.ucdavis.edu
+Message-ID: <64e796aa54966_155555bda2ce84449f@01ef6be2396b.mail>
+Subject: Ribbon Tool - New User Approval Needed
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+
+  <h1>A new user is requesting access to the Ribbon Tool for UMD.</h1>
+
+  <p>
+      Name: Rachit Thakur
+  </p>
+
+  <p>
+      Email: rachit.thakur1296@gmail.com
+  </p>
+
+  <p>
+      Approve this user at <a href="http://localhost:3000/users/1/edit">http://localhost:3000/users/1/edit</a>
+  </p>
+
+</body>
+</html>
+
+
+
+
+
+
+
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  Rendering devise/mailer/confirmation_instructions.html.erb
+  Rendered devise/mailer/confirmation_instructions.html.erb (0.4ms)
+Devise::Mailer#confirmation_instructions: processed outbound mail in 34.2ms
+Sent mail to rachit.thakur1296@gmail.com (0.5ms)
+Date: Thu, 24 Aug 2023 17:43:06 +0000
+From: ribbon-tool@iamstem.ucdavis.edu
+Reply-To: ribbon-tool@iamstem.ucdavis.edu
+To: rachit.thakur1296@gmail.com
+Message-ID: <64e796aa5f4e7_155555bda2ce8445a4@01ef6be2396b.mail>
+Subject: Confirmation instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<h2>Hi,</h2>
+
+<p>Thanks for requesting access to the Ribbon Tool!</p>
+
+<p>Before you can get started, you will need to confirm that you really requested access, and an admin will need to approve you.</p>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><a href="http://localhost:3000/users/confirmation?confirmation_token=NR9HvwCAy5xjPCQ931W-">Confirm my account</a></p>
+
+<p>An admin has been notified of your request.  Upon approval you will be sent a notification email.</p>
+
+<p style="color:red;">
+    If you recieved this email and did not request an account, please contact matt.steinwachs@iamstem.ucdavis.edu and we'll stop bothering you.
+</p>
+Redirected to http://localhost:3000/
+Completed 302 Found in 513ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/" for 172.18.0.1 at 2023-08-24 17:43:06 +0000
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 38ms (Views: 37.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 172.18.0.1 at 2023-08-24 17:46:27 +0000
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"84y3++NaptpTCi23B/9QJl2bcQRf5CgizWH9iqciRnEGS328Xs+DAmi69QwQrX8huc5A2wOYZN0IoyjLpmsGZA==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 82ms (ActiveRecord: 0.6ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"84y3++NaptpTCi23B/9QJl2bcQRf5CgizWH9iqciRnEGS328Xs+DAmi69QwQrX8huc5A2wOYZN0IoyjLpmsGZA==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (4.1ms)
+Completed 200 OK in 106ms (Views: 49.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 172.18.0.1 at 2023-08-24 17:46:34 +0000
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"0Z6GPQiaahVpA9+K06sn4hNSQuuudNajt3KGx5uvxG4kWUx6tQ9PzVKzBzHE+Qjl9wdzNPIImlxysFOGmuaEew==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 401 Unauthorized in 88ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/users/sign_in" for 172.18.0.1 at 2023-08-24 17:46:34 +0000
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 46ms (Views: 45.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 172.18.0.1 at 2023-08-24 17:47:33 +0000
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"auxGZeZkAICxPTUl7Zuv5Zx0plyclNzTP/ZDMcPjYsSfK4wiW/ElWIqN7Z76yYDieCGXg8DokCz6NJZwwqoi0Q==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 86ms (ActiveRecord: 0.7ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"auxGZeZkAICxPTUl7Zuv5Zx0plyclNzTP/ZDMcPjYsSfK4wiW/ElWIqN7Z76yYDieCGXg8DokCz6NJZwwqoi0Q==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 115ms (Views: 58.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 172.18.0.1 at 2023-08-24 17:47:37 +0000
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"PeRmXt1bIC8Ux5MG+EpYJVnMmATI5EA23lRVBusW/m3II6wZYM4F9y93S73vGHcivZmp25SYDMkbloBH6l++eA==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 401 Unauthorized in 89ms (ActiveRecord: 1.1ms)
+
+
+Started GET "/users/sign_in" for 172.18.0.1 at 2023-08-24 17:47:37 +0000
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 46ms (Views: 45.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 172.18.0.1 at 2023-08-24 17:49:34 +0000
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"hRHN9U/OxV4w48XgyGIU00qmAvuaAC6n+plEv9E76ddw1gey8lvghgtTHVvfMDvUrvMzJMZ8Ylg/W5H+0HKpwg==", "user"=>{"email"=>"rachit.thakur1296@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "rachit.thakur1296@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "remember_created_at" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["remember_created_at", "2023-08-24 17:49:34.272302"], ["updated_at", "2023-08-24 17:49:34.273273"], ["id", 1]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Update (0.2ms)[0m  [1m[33mUPDATE "users" SET "updated_at" = $1, "sign_in_count" = $2, "current_sign_in_at" = $3, "last_sign_in_at" = $4, "current_sign_in_ip" = $5, "last_sign_in_ip" = $6 WHERE "users"."id" = $7[0m  [["updated_at", "2023-08-24 17:49:34.276039"], ["sign_in_count", 1], ["current_sign_in_at", "2023-08-24 17:49:34.275524"], ["last_sign_in_at", "2023-08-24 17:49:34.275524"], ["current_sign_in_ip", "172.18.0.1/32"], ["last_sign_in_ip", "172.18.0.1/32"], ["id", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 96ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/" for 172.18.0.1 at 2023-08-24 17:49:34 +0000
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Processing by HomeController#home as HTML
+  [1m[36mAnnouncement Load (0.2ms)[0m  [1m[34mSELECT  "announcements".* FROM "announcements" WHERE "announcements"."admin_only" = $1 ORDER BY "announcements"."created_at" DESC LIMIT $2[0m  [["admin_only", false], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[36mDiagram Load (0.3ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" INNER JOIN "user_diagrams" ON "diagrams"."id" = "user_diagrams"."diagram_id" WHERE "user_diagrams"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mDiagram Load (0.1ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" WHERE "diagrams"."creator_id" = $1[0m  [["creator_id", 1]]
+  [1m[36mInstitution Load (0.1ms)[0m  [1m[34mSELECT  "institutions".* FROM "institutions" WHERE "institutions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDiagram Load (0.2ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" WHERE "diagrams"."institution_id" = $1 AND "diagrams"."share_with_all" = $2[0m  [["institution_id", 1], ["share_with_all", true]]
+  [1m[36mDiagram Load (0.1ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" WHERE "diagrams"."share_with_all_institutions" = $1[0m  [["share_with_all_institutions", true]]
+  Rendering home/home.html.haml within layouts/application
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  Rendered home/home.html.haml within layouts/application (5.5ms)
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+Completed 200 OK in 88ms (Views: 52.5ms | ActiveRecord: 4.3ms)
+
+
+Started GET "/assets/home.self-8c4e4e927d15ce8adb2b715dad5ef37e665dbe6174b556dc839eb13229031f54.css?body=1" for 172.18.0.1 at 2023-08-24 17:49:34 +0000
+Started GET "/assets/home.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for 172.18.0.1 at 2023-08-24 17:49:34 +0000
+Started GET "/" for 172.18.0.1 at 2023-08-24 17:49:57 +0000
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Processing by HomeController#home as HTML
+  [1m[36mAnnouncement Load (0.5ms)[0m  [1m[34mSELECT  "announcements".* FROM "announcements" WHERE "announcements"."admin_only" = $1 ORDER BY "announcements"."created_at" DESC LIMIT $2[0m  [["admin_only", false], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[36mDiagram Load (0.4ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" INNER JOIN "user_diagrams" ON "diagrams"."id" = "user_diagrams"."diagram_id" WHERE "user_diagrams"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mDiagram Load (0.2ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" WHERE "diagrams"."creator_id" = $1[0m  [["creator_id", 1]]
+  [1m[36mInstitution Load (0.4ms)[0m  [1m[34mSELECT  "institutions".* FROM "institutions" WHERE "institutions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDiagram Load (0.3ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" WHERE "diagrams"."institution_id" = $1 AND "diagrams"."share_with_all" = $2[0m  [["institution_id", 1], ["share_with_all", true]]
+  [1m[36mDiagram Load (0.2ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" WHERE "diagrams"."share_with_all_institutions" = $1[0m  [["share_with_all_institutions", true]]
+  Rendering home/home.html.haml within layouts/application
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  Rendered home/home.html.haml within layouts/application (6.5ms)
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+Completed 200 OK in 83ms (Views: 68.0ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/diagrams" for 172.18.0.1 at 2023-08-24 17:50:01 +0000
+Processing by DiagramsController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[36mDiagram Load (0.6ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" INNER JOIN "user_diagrams" ON "diagrams"."id" = "user_diagrams"."diagram_id" WHERE "user_diagrams"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mDiagram Load (0.4ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" WHERE "diagrams"."creator_id" = $1[0m  [["creator_id", 1]]
+  [1m[36mInstitution Load (0.4ms)[0m  [1m[34mSELECT  "institutions".* FROM "institutions" WHERE "institutions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDiagram Load (0.3ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" WHERE "diagrams"."institution_id" = $1 AND "diagrams"."share_with_all" = $2[0m  [["institution_id", 1], ["share_with_all", true]]
+  [1m[36mDiagram Load (0.3ms)[0m  [1m[34mSELECT "diagrams".* FROM "diagrams" WHERE "diagrams"."share_with_all_institutions" = $1[0m  [["share_with_all_institutions", true]]
+  Rendering diagrams/index.html.haml within layouts/application
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  Rendered diagrams/index.html.haml within layouts/application (8.0ms)
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+Completed 200 OK in 124ms (Views: 110.2ms | ActiveRecord: 3.3ms)
+
+
+Started GET "/assets/d3-context-menu.self-86d2c05157a02cfbc63a70cff49604fbf0f413e94a71e73de34c6eb76e07755e.css?body=1" for 172.18.0.1 at 2023-08-24 17:50:01 +0000
+Started GET "/assets/diagrams.self-33aa1e58ad48ffc6ce45d53a1cec012ba38331d6b3833811d80ce062e25eee83.css?body=1" for 172.18.0.1 at 2023-08-24 17:50:01 +0000
+Started GET "/assets/d3.self-43987e92ab3314a1de2c8bb6c21233fc25060d53b389e165f09cf5312d7ecc29.js?body=1" for 172.18.0.1 at 2023-08-24 17:50:01 +0000
+Started GET "/assets/sankey.self-e4b270539400f8de5548804889dc83b409d594327164be7610af984ea68b72db.js?body=1" for 172.18.0.1 at 2023-08-24 17:50:01 +0000
+Started GET "/assets/jquery.blockUI.self-278c5fb8a92daa6500124a3a2dcfc48c0e1b22e52ece243d646df4813e069cf5.js?body=1" for 172.18.0.1 at 2023-08-24 17:50:01 +0000
+Started GET "/assets/html.sortable.self-ba601146e403542e70319d5cab92617c242e76f2ebda9fb8901278f7e578b7e0.js?body=1" for 172.18.0.1 at 2023-08-24 17:50:01 +0000
+Started GET "/assets/diagrams.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 172.18.0.1 at 2023-08-24 17:50:01 +0000
+Started GET "/assets/d3-context-menu.self-a19801ba54a7b244e8b2d2cd34ff82623cba560c1b3ded8542454279403e6742.js?body=1" for 172.18.0.1 at 2023-08-24 17:50:02 +0000
+Started GET "/assets/d3-tip.self-55d80fdb358d5dcb0a019e203a85cc371c4f7410f53f78741766053d3fa10855.js?body=1" for 172.18.0.1 at 2023-08-24 17:50:02 +0000
+Started GET "/assets/dataTables/sort_asc-ee6010bb0a8d17e58307136a0fbf0b196d949ab6c50eb66d1ff8f0a7d2a4d48b.png" for 172.18.0.1 at 2023-08-24 17:50:02 +0000
+Started GET "/assets/dataTables/sort_both-624f0a471a2535c4754e1f6974b0e64ee70d6907738346e2a11d0bff20258b8c.png" for 172.18.0.1 at 2023-08-24 17:50:02 +0000
+Started GET "/users/1" for 172.18.0.1 at 2023-08-24 17:50:06 +0000
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInstitution Load (0.4ms)[0m  [1m[34mSELECT  "institutions".* FROM "institutions" WHERE "institutions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Institution Load (0.0ms)[0m  [1m[34mSELECT  "institutions".* FROM "institutions" WHERE "institutions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/show.html.haml within layouts/application
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[36mRoyce::Role Load (0.3ms)[0m  [1m[34mSELECT "royce_role".* FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  Rendered users/show.html.haml within layouts/application (7.2ms)
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+Completed 200 OK in 84ms (Views: 72.0ms | ActiveRecord: 3.3ms)
+
+
+Started GET "/assets/users.self-9e0f40c1c01ad8033fde34dbebffb6a3357be668252c6c7199bf9a6d6ca99339.css?body=1" for 172.18.0.1 at 2023-08-24 17:50:06 +0000
+Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 172.18.0.1 at 2023-08-24 17:50:06 +0000
+Started GET "/users" for 172.18.0.1 at 2023-08-24 17:50:10 +0000
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  Rendering users/index.html.haml within layouts/application
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[36mInstitution Load (0.3ms)[0m  [1m[34mSELECT  "institutions".* FROM "institutions" WHERE "institutions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[36mCACHE Institution Load (0.0ms)[0m  [1m[34mSELECT  "institutions".* FROM "institutions" WHERE "institutions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  Rendered users/index.html.haml within layouts/application (25.0ms)
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "royce_role"."name" FROM "royce_role" INNER JOIN "royce_connector" ON "royce_role"."id" = "royce_connector"."role_id" WHERE "royce_connector"."roleable_id" = $1 AND "royce_connector"."roleable_type" = $2[0m  [["roleable_id", 1], ["roleable_type", "User"]]
+Completed 200 OK in 90ms (Views: 79.4ms | ActiveRecord: 3.1ms)
+
+

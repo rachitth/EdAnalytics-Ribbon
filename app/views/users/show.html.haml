@@ -1,0 +1,28 @@
+%p
+  %b Institution:
+  = @user.institution.name
+
+%p
+  %b Name:
+  = @user.name
+%p
+  %b Email:
+  = @user.email
+%p
+  %b Title:
+  = @user.title
+%p
+  %b Department:
+  = @user.department
+
+- if policy(current_user).set_roles?
+  %p
+    %b Roles:
+    %ul
+    - @user.roles.each do |role|
+      %li= role
+
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path
