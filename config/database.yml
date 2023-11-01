@@ -26,10 +26,10 @@ development:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  database: myapp_development #ribbon_diagram_development #ribbon_aws_prod
-  host: db
-  username: myapp
-  password: mysecretpassword
+  database: postgres #ribbon_diagram_development #ribbon_aws_prod
+  host: localhost
+  username: postgres
+  password: 123456
 
 #Docker
 #development: &default
